@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile | NUTRiViBE</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap"
+        rel="stylesheet">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/sidebar.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="sidebar d-flex flex-column align-items-center py-4">
+                <div class="logo-container floating mb-4">
+                    <a href="/"><img src="/assets/nutrivibe.png" alt="NUTRiViBE Logo" height="40"></a>
+                </div>
+                <div class="d-flex flex-column align-items-center">
+                    <a href="/dashboard/<%=user.id%>" class="sidebar-icon"><i class="fas fa-th-large"></i></a>
+                    <a href="/dashboard/<%=user.id%>/diet" class="sidebar-icon"><i class="fas fa-utensils"></i></a>
+                    <a href="/dashboard/<%=user.id%>/exercise" class="sidebar-icon"><i class="fas fa-dumbbell"></i></a>
+                    <a href="/dashboard/<%=user.id%>/streak" class="sidebar-icon"><i class="fas fa-fire"></i></a>
+                    <a href="/dashboard/<%=user.id%>/chatbot" class="sidebar-icon active"><i class="fas fa-robot"></i></a>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Header -->
+                <header class="d-flex justify-content-between align-items-center p-3 header mb-4" data-aos="fade-down">
+                    <div>
+                        <h1 class="h4 mb-0 fw-semibold">User Profile</h1>
+                        <p class="text-muted small mb-0">Updated as of April 05, 2025</p>
+                    </div>
+                    <div class="d-flex gap-3">
+                        <button class="btn btn-link text-muted p-0"><a href="/dashboard/<%=user.id%>/chatbot"><i class="fas fa-search fs-5" style="color: #2f855a;"></i></a></button>
+                        <div class="dropdown">
+                            <button class="btn btn-link text-muted p-0 dropdown-toggle" type="button"
+                                id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user-circle fs-4"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="/"><i class="fas fa-sign-out-alt me-2"></i>
+                                        Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="row g-3">
+                    <!-- Left Content -->
+                    <div class="col-lg-8">
+                        <!-- User Summary -->
+                        <div class="metric-card p-4 mb-4" data-aos="fade-up">
+                            <div class="text-center mb-4">
+                                <div class="avatar-container">
+                                    <div class="avatar-placeholder">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                </div>
+                                <h3 class="mb-1"><%=user.name%></h3>
+                                <p class="text-muted">Premium Member</p>
+                                <div class="d-flex justify-content-center gap-2">
+                                    <span class="badge bg-primary"><%=user.healthGoals.primaryGoal%></span>
+                                    <span class="badge bg-success">Active</span>
+                                </div>
+                            </div>
+
+                            <div class="row text-center">
+                                <div class="col-4">
+                                    <h4 class="mb-0" id="weeks">--</h4>
+                                    <p class="text-muted small mb-0">Weeks</p>
+                                </div>
+                                <div class="col-4">
+                                    <h4 class="mb-0" id="weight-change">--</h4>
+                                    <p class="text-muted small mb-0">kg Lost</p>
+                                </div>
+                                <div class="col-4">
+                                    <h4 class="mb-0" id="progress-percent">--%</h4>
+                                    <p class="text-muted small mb-0">Progress</p>
+                                </div>
+                            </div>                            
+                        </div>
+
+                        <!-- Basic Information -->
+                        <div class="metric-card p-4 mb-4" data-aos="fade-up">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h2 class="h5 fw-semibold mb-0"><i
+                                        class="fas fa-user-circle me-2 text-primary"></i>Basic Information</h2>
+                                <button class="btn btn-sm btn-outline-primary">Edit</button>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="info-item">
+                                        <div class="info-icon">
+                                            <i class="fas fa-birthday-cake"></i>
+                                        </div>
+                                        <div>
+                                            <p class="mb-0 text-muted small">Age</p>
+                                            <p class="mb-0 fw-semibold"><span id="profile-age"><%=user.age%></span> years</p>
+                                        </div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-icon">
+                                            <i class="fas fa-venus-mars"></i>
+                                        </div>
+                                        <div>
+                                            <p class="mb-0 text-muted small">Gender</p>
+                                            <p class="mb-0 fw-semibold"><span id="profile-gender"><%=user.gender%></span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="info-item">
+                                        <div class="info-icon">
+                                            <i class="fas fa-ruler-vertical"></i>
+                                        </div>
+                                        <div>
+                                            <p class="mb-0 text-muted small">Height</p>
+                                            <p class="mb-0 fw-semibold"><span id="profile-height"><%=user.height%></span> cm</p>
+                                        </div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-icon">
+                                            <i class="fas fa-weight"></i>
+                                        </div>
+                                        <div>
+                                            <p class="mb-0 text-muted small">Weight</p>
+                                            <p class="mb-0 fw-semibold"><span id="profile-weight"><%=user.weight%></span> kg</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Health Metrics -->
+                        <div class="metric-card p-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h2 class="h5 fw-semibold mb-0"><i class="fas fa-heartbeat me-2 text-danger"></i>Health
+                                    Metrics</h2>
+                            </div>
+
+                            <div class="chart-container mb-4">
+                                <canvas id="healthMetricsChart"></canvas>
+                            </div>
+
+                            <div class="health-metric">
+                                <div>
+                                    <i class="fas fa-tint text-danger me-2"></i>
+                                    <span>Blood Sugar</span>
+                                </div>
+                                <div class="text-end">
+                                    <span class="metric-value"><span id="profile-blood-sugar"><%=user.bloodSugar%></span> mg/dL</span>
+                                    <span class="metric-status status-good">Normal</span>
+                                </div>
+                            </div>
+                            <div class="health-metric">
+                                <div>
+                                    <i class="fas fa-heart text-danger me-2"></i>
+                                    <span>Heart Rate</span>
+                                </div>
+                                <div class="text-end">
+                                    <span class="metric-value"><span id="profile-heart-rate"><%=user.heartRate%></span> bpm</span>
+                                    <span class="metric-status status-good">Optimal</span>
+                                </div>
+                            </div>
+                            <div class="health-metric">
+                                <div>
+                                    <i class="fas fa-heartbeat text-danger me-2"></i>
+                                    <span>Blood Pressure</span>
+                                </div>
+                                <div class="text-end">
+                                    <span class="metric-value"><span id="profile-blood-pressure"><%=user.bloodPressure%></span>
+                                        mmHg</span>
+                                    <span class="metric-status status-good">Normal</span>
+                                </div>
+                            </div>
+                            <div class="health-metric">
+                                <div>
+                                    <i class="fas fa-fire text-warning me-2"></i>
+                                    <span>Daily Calories</span>
+                                </div>
+                                <div class="text-end">
+                                    <span class="metric-value">1,850 kcal</span>
+                                    <span class="metric-status status-warning">On Track</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Progress & Goals -->
+                        <div class="metric-card p-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h2 class="h5 fw-semibold mb-0"><i
+                                        class="fas fa-bullseye me-2 text-success"></i>Progress & Goals</h2>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span id="progress-label">Weight Progress</span>
+                                    <span id="progress-value">0/0 kg (0%)</span>
+                                </div>
+                                <div class="progress-container">
+                                    <div class="progress-bar-custom" id="progress-bar" style="width: 0%"></div>
+                                </div>
+                            </div>                            
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <p class="mb-1"><i class="fas fa-bullseye me-2 text-primary"></i><strong>Primary
+                                            Goal:</strong></p>
+                                    <p><span id="profile-primary-goal"><%=user.healthGoals.primaryGoal%></span></p>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <p class="mb-1"><i class="fas fa-weight me-2 text-primary"></i><strong>Target
+                                            Weight:</strong></p>
+                                    <p><span id="profile-target-weight"><%=user.healthGoals.targetWeight%></span> kg</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="mb-1"><i class="fas fa-running me-2 text-primary"></i><strong>Activity
+                                            Level:</strong></p>
+                                    <p><span id="profile-activity-level"><%=user.healthGoals.activityLevel%></span></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="mb-1"><i class="fas fa-calendar-alt me-2 text-primary"></i><strong>Target
+                                            Date:</strong></p>
+                                    <p id="targetDate"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Panel -->
+                    <div class="col-lg-4">
+                        <div class="right-panel p-4 h-100" data-aos="fade-left">
+                            <!-- Body Measurements -->
+                            <div class="mb-4">
+                                <h2 class="h5 fw-semibold mb-3"><i class="fas fa-ruler-combined me-2"></i>Body
+                                    Measurements</h2>
+                                <div class="bg-dark-panel p-3 rounded-3">
+                                    <div
+                                        class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary">
+                                        <p><i class="fas fa-tshirt me-2"></i>Chest</p>
+                                        <p><span id="profile-chest"><%=user.bodyMeasurements.chest%></span> in</p>
+                                    </div>
+                                    <div
+                                        class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary">
+                                        <p><i class="fas fa-ruler-combined me-2"></i>Waist</p>
+                                        <p><span id="profile-waist"><%=user.bodyMeasurements.waist%></span> in</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center py-2">
+                                        <p><i class="fas fa-hips me-2"></i>Hip</p>
+                                        <p><span id="profile-hip"><%=user.bodyMeasurements.hip%></span> in</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Nutrition Chart -->
+                            <div class="mb-4">
+                                <h2 class="h5 fw-semibold mb-3"><i class="fas fa-apple-alt me-2"></i>Nutrition Balance
+                                </h2>
+                                <div class="bg-dark-panel p-3 rounded-3">
+                                    <div class="chart-container">
+                                        <canvas id="nutritionChart"></canvas>
+                                    </div>
+                                    <div class="row text-center mt-2">
+                                        <div class="col-4">
+                                            <p class="mb-0 small">Carbs</p>
+                                            <p class="mb-0 fw-bold">45%</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <p class="mb-0 small">Protein</p>
+                                            <p class="mb-0 fw-bold">30%</p>
+                                        </div>
+                                        <div class="col-4">
+                                            <p class="mb-0 small">Fat</p>
+                                            <p class="mb-0 fw-bold">25%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dietary Preferences -->
+                            <div class="mb-4">
+                                <h2 class="h5 fw-semibold mb-3"><i class="fas fa-utensils me-2"></i>Dietary Preferences
+                                </h2>
+                                <div class="bg-dark-panel p-3 rounded-3 mb-3">
+                                    <div id="dietary-prefs-container">
+                                        <span class="tag"><i class="fas fa-leaf"></i><%=user.dietaryPreferences[0]%></span>
+                                        <span class="tag"><i class="fas fa-bread-slice"></i><%=user.dietaryPreferences[1]%></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Allergies -->
+                            <div>
+                                <h2 class="h5 fw-semibold mb-3"><i class="fas fa-allergies me-2"></i>Allergies</h2>
+                                <div class="bg-dark-panel p-3 rounded-3">
+                                    <div class="d-flex flex-wrap">
+                                        <span class="tag bg-danger bg-opacity-10 text-danger"><i
+                                                class="fas fa-pepper-hot"></i><%=user.allergies%></span>
+                                        <span class="tag bg-danger bg-opacity-10 text-danger"><i
+                                                class="fas fa-fish"></i>Shellfish</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        const user = <%- JSON.stringify(user) %>;
+    </script>
+      
+    <script src="/js/profile.js"></script>
+
+    <script>
+        // Initialize AOS animation
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: false, // Set to false if you want animations to repeat on scroll
+            mirror: true
+        });
+    </script>
+</body>
+
+</html>

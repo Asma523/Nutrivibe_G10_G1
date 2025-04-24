@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Health Overview | NUTRiViBE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/sidebar.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <!-- Sidebar -->
+            <div class="sidebar d-flex flex-column align-items-center py-4">
+                <div id="sidebar-container"></div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Header -->
+                <header class="d-flex justify-content-between align-items-center p-3 header mb-4" data-aos="fade-down">
+                    <div>
+                        <h1 class="h4 mb-0 fw-semibold">Health Dashboard</h1>
+                        <p class="text-muted small mb-0">Today, <span id="current-date"></span></p>
+                    </div>
+                    <div class="d-flex gap-3">
+                        <button class="btn btn-link text-muted p-0"><a href="/dashboard/<%=user.id%>/chatbot"><i
+                                    class="fas fa-search fs-5" style="color: #2f855a;"></i></a></button>
+                        <div class="dropdown">
+                            <button class="btn btn-link text-muted p-0 dropdown-toggle" type="button"
+                                id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user-circle fs-4"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                                <li><a class="dropdown-item" href="/dashboard/<%=user.id%>/profile"><i
+                                            class="fas fa-user me-2"></i> Profile</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="/"><i class="fas fa-sign-out-alt me-2"></i>
+                                        Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="row g-3">
+                    <!-- Left Content -->
+                    <div class="col-lg-8">
+                        <!-- Health Metrics -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                                <div class="metric-card p-3 h-100">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div class="text-warning">
+                                            <i class="fas fa-tint fs-2"></i>
+                                        </div>
+                                        <div class="text-end">
+                                            <p class="text-muted small mb-0">Blood Sugar</p>
+                                            <h3 class="h5 mb-0 fw-semibold">
+                                                <%=user.bloodSugar %> <small class="text-muted fs-6">mg/dL</small>
+                                            </h3>
+                                            <span
+                                                class="badge bg-success bg-opacity-10 text-success health-status">Normal</span>
+                                        </div>
+                                    </div>
+                                    <div class="chart-container small-chart">
+                                        <canvas id="bloodSugarChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                                <div class="metric-card p-3 h-100">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div class="text-danger">
+                                            <i class="fas fa-heartbeat fs-2"></i>
+                                        </div>
+                                        <div class="text-end">
+                                            <p class="text-muted small mb-0">Heart Rate</p>
+                                            <h3 class="h5 mb-0 fw-semibold">
+                                                <%=user.heartRate%> <small class="text-muted fs-6">bpm</small>
+                                            </h3>
+                                            <span
+                                                class="badge bg-success bg-opacity-10 text-success health-status">Normal</span>
+                                        </div>
+                                    </div>
+                                    <div class="chart-container small-chart">
+                                        <canvas id="heartRateChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                                <div class="metric-card p-3 h-100">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div class="text-primary">
+                                            <i class="fas fa-tint fs-2"></i>
+                                        </div>
+                                        <div class="text-end">
+                                            <p class="text-muted small mb-0">Blood Pressure</p>
+                                            <h3 class="h5 mb-0 fw-semibold">
+                                                <%=user.bloodPressure%> <small class="text-muted fs-6">
+                                                        mmHg</small>
+                                            </h3>
+                                            <span
+                                                class="badge bg-success bg-opacity-10 text-success health-status">Normal</span>
+                                        </div>
+                                    </div>
+                                    <div class="chart-container small-chart">
+                                        <canvas id="bloodPressureChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Activity Growth -->
+                        <div class="metric-card p-4 mb-4" data-aos="fade-up">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h2 class="h5 fw-semibold mb-0">Activity Growth</h2>
+                                <select class="form-select form-select-sm w-auto border-0 shadow-sm">
+                                    <option>Jan 2021</option>
+                                    <option>Dec 2020</option>
+                                    <option>Nov 2020</option>
+                                </select>
+                            </div>
+                            <div class="chart-container large-chart">
+                                <canvas id="activityGrowthChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Panel -->
+                    <div class="col-lg-4">
+                        <div class="right-panel p-4 h-100" data-aos="fade-left">
+                            <!-- BMI Calculator -->
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h2 class="h5 fw-semibold mb-0">BMI Calculator</h2>
+                                    <select class="form-select form-select-sm w-auto">
+                                        <option>Last Week</option>
+                                        <option>Last Month</option>
+                                        <option>Last Year</option>
+                                    </select>
+                                </div>
+                                <div class="bg-dark-panel p-3 rounded-3 mb-3">
+                                    <% const maxHeight=220; // Set a realistic max height (in cm) const
+                                        heightPercent=Math.min((user.height / maxHeight) * 100, 100); // Cap at 100% %>
+
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <span>Height</span>
+                                                <span>
+                                                    <%= user.height %> cm
+                                                </span>
+                                            </div>
+                                            <div class="progress progress-indicator">
+                                                <div class="progress-bar bg-warning" role="progressbar"
+                                                    style="width: <%= heightPercent %>%">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <% const maxWeight=100; // Set your own max weight const const
+                                            weightPercent=Math.min((user.weight / maxWeight) * 100, 100); // Cap at 100%
+                                            %>
+
+                                            <div class="mb-3">
+                                                <div class="d-flex justify-content-between mb-1">
+                                                    <span>Weight</span>
+                                                    <span>
+                                                        <%= user.weight %> kg
+                                                    </span>
+                                                </div>
+                                                <div class="progress progress-indicator">
+                                                    <div class="progress-bar bg-primary" role="progressbar"
+                                                        style="width: <%= weightPercent %>%">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <%
+                                                const weight = user.weight;       // kg
+                                                const heightCm = user.height;     // cm
+                                                const heightM = heightCm / 100;   // m
+                                                const bmi = (weight / (heightM * heightM)).toFixed(1);
+
+                                                let bmiCategory = '';
+                                                let badgeClass = '';
+
+                                                if (bmi < 18.5) {
+                                                    bmiCategory = "You're Underweight";
+                                                    badgeClass = 'bg-info'; // light blue
+                                                } else if (bmi >= 18.5 && bmi <= 24.9) {
+                                                    bmiCategory = "You're Healthy";
+                                                    badgeClass = 'bg-success'; // green
+                                                } else {
+                                                    bmiCategory = "You're Overweight";
+                                                    badgeClass = 'bg-danger'; // red
+                                                }
+                                            %>
+
+                                            <div class="d-flex justify-content-between mb-3">
+                                                <span>Body Mass Index (BMI)</span>
+                                                <span><%=bmi%></span>
+                                            </div>
+                                            <div class="text-center py-2 rounded-pill fw-medium <%= badgeClass %>"><%= bmiCategory %></div>
+                                </div>
+                            </div>
+
+                            <!-- Body Measurements -->
+                            <div>
+                                <h2 class="h5 fw-semibold mb-2">Body Measurements</h2>
+                                <p class="text-muted small mb-3">Last checked 2 Days Ago</p>
+                                <div class="bg-dark-panel p-3 rounded-3 mb-3">
+                                    <div
+                                        class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary">
+                                        <span>Chest (in)</span>
+                                        <span><%=user.bodyMeasurements.chest%> <i class="fas fa-arrow-up text-danger ms-1"></i></span>
+                                    </div>
+                                    <div
+                                        class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary">
+                                        <span>Waist (in)</span>
+                                        <span><%=user.bodyMeasurements.waist%> <i class="fas fa-arrow-down text-success ms-1"></i></span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center py-2">
+                                        <span>Hip (in)</span>
+                                        <span><%=user.bodyMeasurements.hip%> <i class="fas fa-arrow-up text-danger ms-1"></i></span>
+                                    </div>
+                                </div>
+                                <% 
+                                    let image = '';
+                                    if(user.gender == "Female") {
+                                        image = "/assets/women.png";
+                                    }else{
+                                        image = "/assets/man.png";
+                                    }
+                                %>
+
+                                <div class="text-center">
+                                    <img alt="Body Shape" class="img-fluid rounded-3 "
+                                        src= "<%=image%>" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const userHeight = <%= user.height %>;
+        const userWeight = <%= user.weight %>;
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="/js/loadsidebar.js"></script>
+    <script src="/js/dashboard.js"></script>
+
+</body>
+
+</html>

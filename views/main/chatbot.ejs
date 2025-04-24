@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>AI Health Assistant | NUTRiViBE</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/sidebar.css" rel="stylesheet">
+    <link href="/css/chatbot.css" rel="stylesheet">
+  
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <!-- Sidebar -->
+        <div class="sidebar d-flex flex-column align-items-center py-4">
+            <div class="logo-container floating mb-4">
+                <a href="/"><img src="/assets/nutrivibe.png" alt="NUTRiViBE Logo" height="40"></a>
+            </div>
+            <div class="d-flex flex-column align-items-center">
+                <a href="/dashboard/<%=userId%>" class="sidebar-icon"><i class="fas fa-th-large"></i></a>
+                <a href="/dashboard/<%=userId%>/diet" class="sidebar-icon"><i class="fas fa-utensils"></i></a>
+                <a href="/dashboard/<%=userId%>/exercise" class="sidebar-icon"><i class="fas fa-dumbbell"></i></a>
+                <a href="/dashboard/<%=userId%>/streak" class="sidebar-icon"><i class="fas fa-fire"></i></a>
+                <a href="/dashboard/<%=userId%>/chatbot" class="sidebar-icon active"><i class="fas fa-robot"></i></a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="d-flex justify-content-between align-items-center p-3 header mb-4">
+                <div>
+                    <h1 class="h4 mb-0 fw-semibold">AI Health Assistant</h1>
+                 
+                </div>
+                <div class="d-flex gap-3">
+                    <button class="btn btn-link text-muted p-0"><a href="/dashboard/<%=userId%>/chatbot"><i class="fas fa-search fs-5" style="color: #2f855a;"></i></a></button>
+                    <div class="dropdown">
+                        <button class="btn btn-link text-muted p-0 dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle fs-4"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li><a class="dropdown-item" href="/dashboard/<%=userId%>/profile"><i class="fas fa-user me-2"></i> Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Chatbot Container -->
+            <div class="chatbot-container">
+                <div class="chatbot-header">
+                    <div class="chatbot-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="chatbot-info">
+                        <h5>NUTRiViBE Assistant</h5>
+                        <div class="status-indicator">
+                            <span class="status-dot"></span>
+                            <span class="status-text">Online</span>
+                        </div>
+                    </div>
+                    <button class="btn-delete-chat" id="deleteChatBtn" title="Clear conversation">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+                
+                <div class="chatbot-messages" id="chatMessages">
+                    <!-- Welcome message -->
+                    <div class="message bot-message">
+                        <div class="message-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            <p>Hello! I'm your NUTRiViBE health assistant. How can I help you today?</p>
+                            <div class="message-footer">
+                                <small class="text-muted">Just now</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chatbot-input">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="userInput" placeholder="Ask about nutrition or exercise...">
+                        <button class="btn btn-primary" id="sendButton">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="input-footer text-center mt-2">
+                        <small class="text-muted"><i class="fas fa-shield-alt me-1"></i> Conversations are private and secure</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/chatbot.js"></script>
+
+</body>
+</html>

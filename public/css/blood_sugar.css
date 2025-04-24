@@ -1,0 +1,79 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+.container {
+    width: 90%;
+    max-width: 800px;
+    /* Prevents it from stretching too wide */
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.info-card {
+    padding: 20px;
+    background: #fff3cd;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+    /* Keeps it properly aligned */
+    margin-top: 10px;
+}
+
+.normal {
+    background: #28a745;
+    color: white;
+}
+
+.high {
+    background: #dc3545;
+    color: white;
+}
+
+.low {
+    background: #ffc107;
+    color: black;
+}
+
+.chart-container {
+    padding: 20px;
+    background: #e9ecef;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    min-height: 350px;
+    /* Ensures enough space for the chart */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+canvas {
+    width: 100% !important;
+    height: 300px !important;
+    /* Ensures proper display */
+}
+
+.tips {
+    text-align: left;
+    padding: 20px;
+    background: #d4edda;
+    border-radius: 10px;
+}
+
+.tips ul {
+    list-style-type: square;
+    padding-left: 20px;
+}

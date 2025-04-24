@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise Planner | NUTRiViBE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/sidebar.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <!-- Sidebar -->
+            <div class="sidebar d-flex flex-column align-items-center py-4">
+                <div id="sidebar-container"></div>
+
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Header -->
+                <header class="d-flex justify-content-between align-items-center p-3 header mb-4" data-aos="fade-down">
+                    <div>
+                        <h1 class="h4 mb-0 fw-semibold">Exercise Planner</h1>
+                        <p class="text-muted small mb-0">Today, <span id="current-date"></span></p>
+                    </div>
+                    <div class="d-flex gap-3 align-items-center">
+                        <div class="search-container position-relative me-3" style="width: 300px;">
+                            <a href="/dashboard/<%=userId%>/chatbot" style="text-decoration: none;"><input type="text" class="form-control form-control-lg ps-5"
+                                placeholder="Search exercises, workouts...."></a>
+                            <i class="fas fa-search position-absolute top-50 start-0 translate-middle-y ms-4 text-muted"
+                                style="font-size: 1.1rem;"></i>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-link text-muted p-0 dropdown-toggle" type="button"
+                                id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user-circle fs-4"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                                <li><a class="dropdown-item" href="/dashboard/<%=userId%>/profile"><i class="fas fa-user me-2"></i> Profile</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="/"><i class="fas fa-sign-out-alt me-2"></i>
+                                        Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="row g-3">
+                    <!-- Left Content -->
+                    <div class="col-lg-8">
+                        <!-- Weekly Activity Summary -->
+                        <div class="metric-card p-4 mb-4" data-aos="fade-up">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h2 class="h5 fw-semibold mb-0">Weekly Activity</h2>
+                            </div>
+
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-3">
+                                    <div class="text-center">
+                                        <h3 class="h4 mb-1">4.5</h3>
+                                        <p class="text-muted small mb-0">Hours</p>
+                                        <div class="progress mt-2 exercise-progress">
+                                            <div class="progress-bar bg-primary" role="progressbar" style="width: 75%">
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">75% of goal</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="text-center">
+                                        <h3 class="h4 mb-1">2,450</h3>
+                                        <p class="text-muted small mb-0">Calories</p>
+                                        <div class="progress mt-2 exercise-progress">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 82%">
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">82% of goal</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="text-center">
+                                        <h3 class="h4 mb-1">18,500</h3>
+                                        <p class="text-muted small mb-0">Steps</p>
+                                        <div class="progress mt-2 exercise-progress">
+                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 62%">
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">62% of goal</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="text-center">
+                                        <h3 class="h4 mb-1">5</h3>
+                                        <p class="text-muted small mb-0">Workouts</p>
+                                        <div class="progress mt-2 exercise-progress">
+                                            <div class="progress-bar bg-info" role="progressbar" style="width: 100%">
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">Goal achieved</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="chart-container large-chart">
+                                <canvas id="activityChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Workout Plan -->
+                        <div class="metric-card p-4 mb-4" data-aos="fade-up">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h2 class="h5 fw-semibold mb-0">Today's Workout Plan</h2>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm workout-tab active"
+                                        data-workout="strength">Strength</button>
+                                    <button class="btn btn-sm workout-tab" data-workout="cardio">Cardio</button>
+                                    <button class="btn btn-sm workout-tab"
+                                        data-workout="flexibility">Flexibility</button>
+                                </div>
+                            </div>
+
+                            <!-- Strength Workouts (Default Visible) -->
+                            <div class="workout-section" id="strength-workouts">
+                                <div class="row g-3">
+                                    <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                                        <div class="workout-card">
+                                            <div class="position-relative">
+                                                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                                                    class="workout-img" alt="Strength Training">
+                                                <div class="position-absolute top-0 start-0 p-2">
+                                                    <span class="badge bg-primary">Strength</span>
+                                                </div>
+                                            </div>
+                                            <div class="p-3">
+                                                <h3 class="h6 fw-semibold mb-2">Upper Body Strength</h3>
+                                                <div class="d-flex justify-content-between mb-2">
+                                                    <span class="text-muted small">45 min • 320 kcal</span>
+                                                    <span class="text-muted small">3 sets</span>
+                                                </div>
+                                                <div class="d-flex flex-wrap gap-1 mb-2">
+                                                    <span
+                                                        class="badge bg-primary bg-opacity-10 text-primary badge-intensity">Intermediate</span>
+                                                    <span
+                                                        class="badge bg-success bg-opacity-10 text-success badge-intensity">Dumbbells</span>
+                                                    <span
+                                                        class="badge bg-info bg-opacity-10 text-info badge-intensity">Resistance</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                                        <div class="workout-card">
+                                            <div class="position-relative">
+                                                <img src="https://images.unsplash.com/photo-1538805060514-97d9cc17730c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                                                    class="workout-img" alt="Strength Training">
+                                                <div class="position-absolute top-0 start-0 p-2">
+                                                    <span class="badge bg-primary">Strength</span>
+                                                </div>
+                                            </div>
+                                            <div class="p-3">
+                                                <h3 class="h6 fw-semibold mb-2">Core & Abs Circuit</h3>
+                                                <div class="d-flex justify-content-between mb-2">
+                                                    <span class="text-muted small">30 min • 280 kcal</span>
+                                                    <span class="text-muted small">4 circuits</span>
+                                                </div>
+                                                <div class="d-flex flex-wrap gap-1 mb-2">
+                                                    <span
+                                                        class="badge bg-primary bg-opacity-10 text-primary badge-intensity">Beginner</span>
+                                                    <span
+                                                        class="badge bg-success bg-opacity-10 text-success badge-intensity">Bodyweight</span>
+                                                    <span
+                                                        class="badge bg-warning bg-opacity-10 text-warning badge-intensity">Core</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cardio Workouts (Hidden by Default) -->
+                            <div class="workout-section d-none" id="cardio-workouts">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="workout-card">
+                                            <div class="position-relative">
+                                                <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                                                    class="workout-img" alt="Cardio">
+                                                <div class="position-absolute top-0 start-0 p-2">
+                                                    <span class="badge bg-success">Cardio</span>
+                                                </div>
+                                            </div>
+                                            <div class="p-3">
+                                                <h3 class="h6 fw-semibold mb-2">HIIT Cardio Blast</h3>
+                                                <div class="d-flex justify-content-between mb-2">
+                                                    <span class="text-muted small">25 min • 420 kcal</span>
+                                                    <span class="text-muted small">8 intervals</span>
+                                                </div>
+                                                <div class="d-flex flex-wrap gap-1 mb-2">
+                                                    <span
+                                                        class="badge bg-danger bg-opacity-10 text-danger badge-intensity">Advanced</span>
+                                                    <span
+                                                        class="badge bg-success bg-opacity-10 text-success badge-intensity">High
+                                                        Intensity</span>
+                                                    <span
+                                                        class="badge bg-info bg-opacity-10 text-info badge-intensity">Fat
+                                                        Burn</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="workout-card">
+                                            <div class="position-relative">
+                                                <img src="https://images.unsplash.com/photo-1434682881908-b43d0467b798?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                                                    class="workout-img" alt="Cardio">
+                                                <div class="position-absolute top-0 start-0 p-2">
+                                                    <span class="badge bg-success">Cardio</span>
+                                                </div>
+                                            </div>
+                                            <div class="p-3">
+                                                <h3 class="h6 fw-semibold mb-2">Steady State Running</h3>
+                                                <div class="d-flex justify-content-between mb-2">
+                                                    <span class="text-muted small">40 min • 520 kcal</span>
+                                                    <span class="text-muted small">5km</span>
+                                                </div>
+                                                <div class="d-flex flex-wrap gap-1 mb-2">
+                                                    <span
+                                                        class="badge bg-primary bg-opacity-10 text-primary badge-intensity">Intermediate</span>
+                                                    <span
+                                                        class="badge bg-success bg-opacity-10 text-success badge-intensity">Endurance</span>
+                                                    <span
+                                                        class="badge bg-warning bg-opacity-10 text-warning badge-intensity">Outdoor</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Flexibility Workouts (Hidden by Default) -->
+                            <div class="workout-section d-none" id="flexibility-workouts">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="workout-card">
+                                            <div class="position-relative">
+                                                <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                                                    class="workout-img" alt="Flexibility">
+                                                <div class="position-absolute top-0 start-0 p-2">
+                                                    <span class="badge bg-info">Flexibility</span>
+                                                </div>
+                                            </div>
+                                            <div class="p-3">
+                                                <h3 class="h6 fw-semibold mb-2">Full Body Yoga Flow</h3>
+                                                <div class="d-flex justify-content-between mb-2">
+                                                    <span class="text-muted small">30 min • 180 kcal</span>
+                                                    <span class="text-muted small">12 poses</span>
+                                                </div>
+                                                <div class="d-flex flex-wrap gap-1 mb-2">
+                                                    <span
+                                                        class="badge bg-primary bg-opacity-10 text-primary badge-intensity">Beginner</span>
+                                                    <span
+                                                        class="badge bg-success bg-opacity-10 text-success badge-intensity">Yoga</span>
+                                                    <span
+                                                        class="badge bg-info bg-opacity-10 text-info badge-intensity">Mobility</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="workout-card">
+                                            <div class="position-relative">
+                                                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                                                    class="workout-img" alt="Flexibility">
+                                                <div class="position-absolute top-0 start-0 p-2">
+                                                    <span class="badge bg-info">Flexibility</span>
+                                                </div>
+                                            </div>
+                                            <div class="p-3">
+                                                <h3 class="h6 fw-semibold mb-2">Post-Workout Stretching</h3>
+                                                <div class="d-flex justify-content-between mb-2">
+                                                    <span class="text-muted small">15 min • 90 kcal</span>
+                                                    <span class="text-muted small">8 stretches</span>
+                                                </div>
+                                                <div class="d-flex flex-wrap gap-1 mb-2">
+                                                    <span
+                                                        class="badge bg-primary bg-opacity-10 text-primary badge-intensity">All
+                                                        Levels</span>
+                                                    <span
+                                                        class="badge bg-success bg-opacity-10 text-success badge-intensity">Recovery</span>
+                                                    <span
+                                                        class="badge bg-warning bg-opacity-10 text-warning badge-intensity">Flexibility</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Panel - Recommended Exercises -->
+                    <div class="col-lg-4">
+                        <div class="right-panel p-4 h-100" data-aos="fade-left">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h2 class="h5 fw-semibold mb-0">Recommended Exercises</h2>
+                                <button class="btn btn-sm btn-outline-light">View All</button>
+                            </div>
+
+                            <div class="search-container position-relative mb-4">
+                                <input type="text" class="form-control form-control-lg ps-5"
+                                    placeholder="Search exercises...">
+                                <i class="fas fa-search position-absolute top-50 start-0 translate-middle-y ms-4"
+                                    style="font-size: 1.1rem;"></i>
+                            </div>
+
+                            <div class="list-group list-group-flush">
+                                <a href="#"
+                                    class="list-group-item list-group-item-action bg-transparent text-white border-secondary">
+                                    <div class="d-flex justify-content-between">
+                                        <span>Push-ups</span>
+                                        <span class="text-success">+ Add</span>
+                                    </div>
+                                    <small class="text-muted">Chest, shoulders, triceps</small>
+                                </a>
+                                <a href="#"
+                                    class="list-group-item list-group-item-action bg-transparent text-white border-secondary">
+                                    <div class="d-flex justify-content-between">
+                                        <span>Squats</span>
+                                        <span class="text-success">+ Add</span>
+                                    </div>
+                                    <small class="text-muted">Quads, glutes, hamstrings</small>
+                                </a>
+                                <a href="#"
+                                    class="list-group-item list-group-item-action bg-transparent text-white border-secondary">
+                                    <div class="d-flex justify-content-between">
+                                        <span>Plank</span>
+                                        <span class="text-success">+ Add</span>
+                                    </div>
+                                    <small class="text-muted">Core, shoulders, back</small>
+                                </a>
+                                <a href="#"
+                                    class="list-group-item list-group-item-action bg-transparent text-white border-secondary">
+                                    <div class="d-flex justify-content-between">
+                                        <span>Lunges</span>
+                                        <span class="text-success">+ Add</span>
+                                    </div>
+                                    <small class="text-muted">Legs, glutes, core</small>
+                                </a>
+                                <a href="#"
+                                    class="list-group-item list-group-item-action bg-transparent text-white border-secondary">
+                                    <div class="d-flex justify-content-between">
+                                        <span>Burpees</span>
+                                        <span class="text-success">+ Add</span>
+                                    </div>
+                                    <small class="text-muted">Full body, cardio</small>
+                                </a>
+                                <a href="#"
+                                    class="list-group-item list-group-item-action bg-transparent text-white border-secondary">
+                                    <div class="d-flex justify-content-between">
+                                        <span>Jump Rope</span>
+                                        <span class="text-success">+ Add</span>
+                                    </div>
+                                    <small class="text-muted">Cardio, coordination</small>
+                                </a>
+                                <a href="#"
+                                    class="list-group-item list-group-item-action bg-transparent text-white border-secondary">
+                                    <div class="d-flex justify-content-between">
+                                        <span>Yoga Sun Salutation</span>
+                                        <span class="text-success">+ Add</span>
+                                    </div>
+                                    <small class="text-muted">Flexibility, mobility</small>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="/js/loadsidebar.js"></script>
+    <script src="/js/exercise.js"></script>
+    <script>
+
+
+
+    </script>
+</body>
+
+</html>

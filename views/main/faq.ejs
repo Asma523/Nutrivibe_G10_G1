@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NUTRiViBE - Frequently Asked Questions</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon_io/favicon.ico">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap"
+        rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="/css/navbar.css" rel="stylesheet">
+    <link href="/css/footer.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    
+</head>
+
+<body>
+    <!-- Navigation -->
+    <div id="navbar-placeholder"></div>
+    <!-- FAQ Hero -->
+    <section class="faq-hero">
+        <div class="container">
+            <h1 data-aos="fade-up">Frequently Asked Questions</h1>
+            <p data-aos="fade-up" data-aos-delay="100">Find answers to common questions about NUTRiViBE. Can't find what
+                you're looking for? Contact our support team.</p>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Common Questions</h2>
+                <p>Browse through our most frequently asked questions below</p>
+            </div>
+
+            <div class="text-center faq-categories" data-aos="fade-up">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="account">Account</button>
+                <button class="category-btn" data-category="features">Features</button>
+                <button class="category-btn" data-category="nutrition">Nutrition</button>
+                <button class="category-btn" data-category="fitness">Fitness</button>
+                <button class="category-btn" data-category="billing">Billing</button>
+            </div>
+
+            <div class="accordion" id="faqAccordion" data-aos="fade-up" data-aos-delay="100">
+                <!-- Account Questions -->
+                <div class="accordion-item" data-category="account">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#account1">
+                            How do I create an account?
+                        </button>
+                    </h2>
+                    <div id="account1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Creating an account is simple! Click on the "Get Started" button in the top right corner of
+                            our website or download our app from the App Store or Google Play. You can sign up using
+                            your email address or through your Google or Apple account. After signing up, you'll be
+                            guided through a quick setup process to personalize your experience.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item" data-category="account">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#account2">
+                            Can I change my account information later?
+                        </button>
+                    </h2>
+                    <div id="account2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Yes, you can update your account information at any time. Simply go to your profile settings
+                            where you can change your personal details, health goals, preferences, and more. Some
+                            changes (like your primary email address) may require verification for security purposes.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Questions -->
+                <div class="accordion-item" data-category="features">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#features1">
+                            What devices are compatible with NUTRiViBE?
+                        </button>
+                    </h2>
+                    <div id="features1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            NUTRiViBE is available on iOS (iPhone and iPad) and Android smartphones and tablets. Our web
+                            version works on all modern browsers (Chrome, Safari, Firefox, Edge). We also integrate with
+                            popular wearable devices like Apple Watch, Fitbit, Garmin, and Samsung Galaxy Watch to sync
+                            your fitness data automatically.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item" data-category="features">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#features2">
+                            How does the AI assistant work?
+                        </button>
+                    </h2>
+                    <div id="features2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Our AI assistant uses machine learning to analyze your health data and provide personalized
+                            recommendations. You can ask it questions about nutrition, exercise, or your health metrics,
+                            and it will provide evidence-based answers. The more you use it, the better it understands
+                            your preferences and needs. It's available 24/7 in the app or on our website.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nutrition Questions -->
+                <div class="accordion-item" data-category="nutrition">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#nutrition1">
+                            How accurate is the nutrition tracking?
+                        </button>
+                    </h2>
+                    <div id="nutrition1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Our nutrition database contains over 500,000 foods with verified nutritional information.
+                            For packaged foods, you can scan barcodes for accurate data. For homemade meals, our portion
+                            estimation tools help you log as accurately as possible. While we strive for high accuracy,
+                            remember that nutrition tracking is always an estimate and individual absorption may vary.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item" data-category="nutrition">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#nutrition2">
+                            Can NUTRiViBE help with specific diets?
+                        </button>
+                    </h2>
+                    <div id="nutrition2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Absolutely! We support various dietary approaches including keto, paleo, vegetarian, vegan,
+                            Mediterranean, low-FODMAP, gluten-free, and more. You can set your dietary preferences in
+                            the app, and we'll provide tailored recommendations, recipe suggestions, and track the
+                            nutrients most relevant to your chosen diet.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fitness Questions -->
+                <div class="accordion-item" data-category="fitness">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#fitness1">
+                            Do I need special equipment for the workouts?
+                        </button>
+                    </h2>
+                    <div id="fitness1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Most of our workouts are designed to be done with little to no equipment. We offer
+                            bodyweight-only routines, as well as workouts that incorporate common household items or
+                            basic equipment like dumbbells or resistance bands. You can filter workouts by equipment
+                            available to you in the exercise section.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item" data-category="fitness">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#fitness2">
+                            How are workout plans personalized?
+                        </button>
+                    </h2>
+                    <div id="fitness2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Our workout plans consider your fitness level, goals (weight loss, muscle gain, endurance,
+                            etc.), available equipment, time commitment, and any physical limitations you specify. The
+                            plans adapt as you progress, becoming more challenging as your fitness improves. You can
+                            always manually adjust your plan if needed.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Billing Questions -->
+                <div class="accordion-item" data-category="billing">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#billing1">
+                            What payment methods do you accept?
+                        </button>
+                    </h2>
+                    <div id="billing1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            We accept all major credit cards (Visa, Mastercard, American Express, Discover), PayPal, and
+                            Apple Pay/Google Pay for mobile subscriptions. Payments are processed securely through
+                            encrypted connections, and we don't store your full payment details on our servers.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item" data-category="billing">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#billing2">
+                            Can I cancel my subscription anytime?
+                        </button>
+                    </h2>
+                    <div id="billing2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Yes, you can cancel your subscription at any time. If you cancel during a paid period,
+                            you'll continue to have access until the end of that billing cycle. We don't charge
+                            cancellation fees. You can manage your subscription directly in your account settings or
+                            through the app store where you originally subscribed.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="contact-cta">
+        <div class="container">
+            <h3 data-aos="fade-up">Still have questions?</h3>
+            <p data-aos="fade-up" data-aos-delay="100">Our support team is happy to help with any other questions you
+                might have about NUTRiViBE.</p>
+            <div data-aos="fade-up" data-aos-delay="200">
+                <a href="/team" class="btn btn-primary btn-lg me-3">Contact Support</a>
+                <a href="/" class="btn btn-outline-primary btn-lg">Back to Home</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <!-- Include Footer -->
+    <div id="footer-placeholder"></div>
+    <script src="/js/loadfooter.js"></script>
+    <script src="/js/loadnavbar.js"></script>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="/js/script.js"></script>
+    
+</body>
+
+</html>
