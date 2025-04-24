@@ -1,5 +1,5 @@
  // API Configuration
- const API_KEY = "AIzaSyCNFAIOooAzyqtQgq4YJd2J5LcW_Gf08DQ";
+ const API_KEY = //API KEY HERE;
  const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
  
  document.addEventListener('DOMContentLoaded', function() {
